@@ -7,6 +7,7 @@ Los usuarios también podrán registrarse en el sitio web y tener un registro de
 ## Funcionalidad:
 
 
+
 ## APIs:
 * [Edamam API](https://developer.edamam.com/es/api-recetas-edamam-documentacion) API capaz de devolver recetas en función de un ingrediente. *JSON*
 * **Visión artificial?** para introducir ingredientes mediante fotos
@@ -19,4 +20,4 @@ Los usuarios también podrán registrarse en el sitio web y tener un registro de
 * **/despensa/<usuario>** Listado de ingredientes guardados por un determinado usuario.	
 
 ## Hoja de estilo
-La hoja de estilo *css* la he descargado de un proveedor gratuito de las mismas. [Templated](https://templated.co/)	
+La hoja de estilo *css* la he descargado de un proveedor gratuito de las mismas. [Templated](https://templated.co/) por lo que mi pagina será una pagina web válida.
