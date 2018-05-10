@@ -1,4 +1,6 @@
-# ALaCena
+
+<center>![](./templates/images/logo-ALC.png)</center>
+# **ALaCena** 
 
 ## Introducción
 **Alacena** pretende solventar esa gran duda que envuelve a todos los hogares. ***Que hacemos para comer?***  Alacena es una aplicación web que ofrece multiples recetas en función de los **ingredientes** que tengas en casa. El ususario solo tiene que acceder al sitio web de **Alacena** , introducir los ingredientes que tienen en casa y te aparecerán una variedad de recetas que podras preparar. 
