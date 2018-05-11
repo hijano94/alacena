@@ -65,6 +65,10 @@ def buscar():
 		titulo = request.form['titulo']   
 		return redirect("/resultados")
 
+@app.route('/despensa')
+def despensa():
+	
+
 if __name__ == '__main__':
 	app.debug = True
 	app.run()
