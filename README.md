@@ -7,14 +7,16 @@
 **Alacena** pretende solventar esa gran duda que envuelve a todos los hogares. ***Que hacemos para comer?***  Alacena es una aplicación web que ofrece multiples recetas en función de los **ingredientes** que tengas en casa. El ususario solo tiene que acceder al sitio web de **Alacena** , introducir los ingredientes que tienen en casa y te aparecerán una variedad de recetas que podras preparar. 
 Los usuarios también podrán registrarse en el sitio web y tener un registro de todos los ingredientes que tiene en casa, añadiedo o eliminando. De esta forma la aplicación podra hacer una busqueda más exaustiva y listar las recetas de la que dispongas todos los ingredientes. 
 
-## Funcionalidad:
+## Funcionalidad
 El usuario introducirá los filtros y los ingredientes que serán enviados a la aplicación mediante un metodo POST. Esta irá solicitando recetas a la API para cada uno de los ingredientes junto con los filtros, guardará los datos necesarios en un dict y los ordenará en función del número de ingredientes que coincidan con los que "tiene" el usuario y los mostrará de 10 en 10.
 
-## APIs:
-En principio solo voy a usar una API, la API de Edamam que devuelve recetas en función de los parametros que le envies como: Ingrediente, etiquetas de salud, calorias... Más adelante si voy bien de tiempo incorporaré una API de vision artificial para que el usuario pueda introducir también los ingredientes con fotos.
-* [Edamam API](https://developer.edamam.com/es/api-recetas-edamam-documentacion) Devuelve los datos en *JSON* y tiene una autentificación de usuario y contraseñá en los parametros.
+## APIs
+* [Edamam API](https://developer.edamam.com/es/api-recetas-edamam-documentacion) Devuelve un listado de recetas en función de un ingrediente y varios filtros como: Calorias, etiqueta de salud, dieta... Los datos vienen en formato *JSON* y tiene una autentificación de usuario y contraseñá en los parametros.
+* [Google Cloud Vision API](https://cloud.google.com/vision/docs/?hl=es) Aún no tengo muy estudiada la API pero creo que puedo sacarle dos funcionalidades para mi aplicación.
+	* Introducir ingredientes por foto
+	* Sacar la url de una imagen mediante texto
 
-## Rutas:
+## Rutas
 * **/:** Pagina de inicio. Una pagina estática con un menú y varios enlaces que redirigiran al usuario a las distintas paginas de la web:
 	* Buscador
 	* Despensa
