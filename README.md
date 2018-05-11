@@ -1,5 +1,5 @@
 
-<center>![](static/img/logo-ALC.png)</center>
+![](static/img/logo-ALC.png)
 
 # **ALaCena** 
 
