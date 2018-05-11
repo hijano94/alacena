@@ -1,6 +1,9 @@
 from flask import Flask
 from flask import render_template,request,redirect,session
+import requests
 import json
+import os
+app = Flask(__name__)
 
 ##########################################
 #         VARIABLES GLOBALES             #
@@ -15,13 +18,8 @@ PAG=10		# Número de recetas por página
 #              FUNCIONES                 #
 ##########################################
 
-def SolicitarRecetas (ingrediente):
-	HEAD = {
-		'app_id':os.environ["recipe_id"],
-		'app_key': os.environ["recipe_key"], 
-		'q' : ingrediente,
-		'to' : NUM
-		}
+def SolicitarRecetas (ingrediente,HEAD):
+	
 	c=requests.get(URL ,params=HEAD)
 	
 	if c.status_code == 200:
@@ -54,21 +52,44 @@ def	Coincidencias (ingre):
 ###########################################
 
 @app.route('/')
-def inicio():
+def Inicio():
 	return render_template("index.html")
 
 @app.route('/buscar', methods=['GET', 'POST'])
-def buscar():
+def Buscar():
 	if request.method=="GET":
-		return render_template("addeventos.html",datos=None,error=None,boton="Crear Evento",url="/eventos/add")
+		return render_template("search.html",datos=None)
 	else:
-		titulo = request.form['titulo']   
-		return redirect("/resultados")
+		params={}
+		params["ingredientes"] = request.form['ingredientes']   
+		print(params["ingredientes"])
+		
+		for ing in params["ingredientes"].strip().split(","):
+			HEAD = {
+			'app_id':os.environ["recipe_id"],
+			'app_key': os.environ["recipe_key"], 
+			'q' : ing,
+			'to' : NUM
+			}
+			SolicitarRecetas(ing,HEAD)
+			Coincidencias(params["ingredientes"])
+		
+		RECETAS.sort(key=lambda x: x["coin"])
 
-@app.route('/despensa')
-def despensa():
+		return redirect("/resultados/0")
+
+@app.route('/resultados/<ini>')
+def Resultados(ini):
+	datos=[]
+	for x in range(0,9):
+
+		datos.append(RECETAS[x])
+	return render_template("resultados.html", datos = datos)
+
+#@app.route('/despensa')
+#def Despensa():
 	
 
 if __name__ == '__main__':
 	app.debug = True
-	app.run()
+	app.run('0.0.0.0')

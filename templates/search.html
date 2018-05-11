@@ -9,7 +9,9 @@
 		<title>ALaCena - Buscador</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="/static/css/main.css" />
+		<link rel="icon" type="image/x-icon" href="/static/img/logo-alc.png" />
+		
 	</head>
 	<body class="subpage">
 
@@ -18,10 +20,10 @@
 				<div class="inner">
 					<a href="index.html" class="logo"><strong>ALaCena</strong> by Carlos Hijano</a>
 					<nav id="nav">
-						<a href="index.html">Inicio</a>
-						<a href="search.html">Buscador</a>
-						<a href="despensa.html">Despensa</a>
-						<a href="info.html">Acerca de</a>
+						<a href="/">Inicio</a>
+						<a href="/buscar">Buscador</a>
+						<a href="/despensa">Despensa</a>
+						<a href="/acercade">Acerca de</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
@@ -35,50 +37,89 @@
 						<p>Encuentra tu receta ideal</p>
 					</header>
 
-						<form method="post" action="#">
+						<form method="post" action="/buscar">
 							<div class="row uniform">
 								<div class="12u$">
-									<textarea name="demo-message" id="demo-message" placeholder="Introduce los ingredientes separados por comas..." rows="2"></textarea>
+									<textarea name="ingredientes" type="text" id="demo-message" placeholder="Introduce los ingredientes separados por comas..." rows="2" value= "{{ datos['ingredientes'] }}" ></textarea>
 								</div>
 								<!-- Break -->
-								<div class="12u$">
-									<div class="select-wrapper">
-										<select name="demo-category" id="demo-category">
-											<option value="">- Dieta -</option>
-											<option value="1">Balanceado</option>
-											<option value="1">Alto en proteína</option>
-											<option value="1">Alto en Fibra</option>
-											<option value="1">Bajo en Grasas</option>
-											<option value="1">Bajo en Carbohidratos</option>
-											<option value="1">Bajo en Sodio</option>
-										</select>
+								<div class="row">
+									<div >
+										<h4>Dieta</h4>
+										<ul class="actions small">
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Balanceado</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Alto en proteína</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Alto en Fibra</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Bajo en Grasas</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Bajo en Carbohidratos</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Bajo en Sodio</label>
+											</li>
+										</ul>
 									</div>
-								</div>
+								</div>	
 								<!-- Break -->
-								<div class="12u$">
-									<div class="select-wrapper">
-										<select name="demo-category" id="demo-category">
-											<option value="">- Salud -</option>
-											<option value="1">Vegana</option>
-											<option value="1">Sin Soja</option>
-											<option value="1">Sin gluten</option>
-											<option value="1">Sin Huevo</option>
-											<option value="1">Bajo en Azúcar</option>
-											<option value="1">Sin Grasas</option>
-										</select>
+								<div class="row">
+									<div >
+										<h4>Salud</h4>
+										<ul class="actions small">
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Vegana</label>
+											</li><li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Vegetariana</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Sin Soja</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Sin gluten</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Sin Huevo</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Bajo en Azúcar</label>
+											</li>
+											<li>
+												<input type="checkbox" id="demo-copy" name="demo-copy">
+												<label for="demo-copy">Sin Grasas</label>
+											</li>
+										</ul>
 									</div>
-								</div>
 								<!-- Break -->
+
 								<div class="2u 12u$(small)">
-									<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-									<label for="demo-priority-low">Menos de</label>
+									<input type="radio" id="demo-priority-low" name="menos" value="True" checked>
+									<label for="menos">Menos de</label>
 								</div>
 								<div class="2u 12u$(small)">	
-									<input type="radio" id="demo-priority-normal" name="demo-priority">
-									<label for="demo-priority-normal">Más de</label>
+									<input type="radio" id="demo-priority-normal" name="menos" value="False">
+									<label for="menos">Más de</label>
 								</div>
 								<div class="4u 12u$(small)">	
-									<textarea name="demo-message" id="demo-message" placeholder="Calorias..." rows="1"></textarea>
+									<textarea name="calorias" id="demo-message" placeholder="Calorias..." rows="1" value="{{datos['calorias']}}"></textarea>
 								</div>
 								<!-- Break -->
 								<div class="12u$">
@@ -105,10 +146,10 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/skel.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<script src="/static/js/main.js"></script>
 
 	</body>
 </html>
