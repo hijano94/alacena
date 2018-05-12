@@ -1,1 +1,1 @@
-web: python3 alacena.py
+web: python alacena.py

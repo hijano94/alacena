@@ -23,6 +23,7 @@ def SolicitarRecetas (ingrediente,HEAD):
 	c=requests.get(URL ,params=HEAD)
 	
 	if c.status_code == 200:
+		RECETAS.clear()
 		todo=c.json()
 		for re in todo["hits"]:
 			dic={}
@@ -50,9 +51,9 @@ def	Coincidencias (ingre):
 					receta["listcoin"].append(ing)
 					break
 
-def ImprimirConsola ():
+def ImprimirConsola (datos):
 	print("######## RECETAS ########")
-	for receta in RECETAS:
+	for receta in datos:
 		print("\n    @ %s"%receta["nombre"])
 		print("        > Imagen: %s"%receta["imagen"])
 		print("        > Url: %s"%receta["url"])
@@ -83,16 +84,16 @@ def Buscar():
 			params["calorias"]= "lte %s"%request.form["calorias"]
 		elif request.form["menos"] == "False" and request.form["calorias"] != None:  
 			params["calorias"]= "gte %s"%request.form["calorias"]
-
-		print(params["ingredientes"])
 		
 		for ing in params["ingredientes"].strip().split(","):
 			HEAD = {
 			'app_id':os.environ["recipe_id"],
 			'app_key': os.environ["recipe_key"], 
 			'q' : ing,
+			'calories' : params["calorias"],
 			'to' : NUM
 			}
+			print(HEAD)
 			SolicitarRecetas(ing,HEAD)
 		
 		Coincidencias(params["ingredientes"])
@@ -103,10 +104,11 @@ def Buscar():
 @app.route('/resultados/<ini>')
 def Resultados(ini):
 	datos=[]
-	ImprimirConsola()
 	for x in range(0,9):
 
 		datos.append(RECETAS[x])
+
+	ImprimirConsola(datos)
 	return render_template("resultados.html", datos = datos)
 
 #@app.route('/despensa')
