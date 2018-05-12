@@ -29,9 +29,10 @@ def SolicitarRecetas (ingrediente,HEAD):
 			dic["nombre"]=re["recipe"]["label"]
 			dic["imagen"]=re["recipe"]["image"]
 			dic["url"]=re["recipe"]["url"]
-			dic["calorias"]=re["recipe"]["calories"]
+			dic["calorias"]=int(re["recipe"]["calories"])
 			dic["ingredientes"]=re["recipe"]["ingredientLines"]
 			dic["coin"]=0
+			dic["listcoin"]=[]
 			if 'Vegan' in re["recipe"]["healthLabels"]:	
 				dic["vegan"]=True
 			else:
@@ -46,6 +47,22 @@ def	Coincidencias (ingre):
 			for x in receta["ingredientes"]:
 				if ing.upper() in x.upper():
 					receta["coin"]+=1
+					receta["listcoin"].append(ing)
+					break
+
+def ImprimirConsola ():
+	print("######## RECETAS ########")
+	for receta in RECETAS:
+		print("\n    @ %s"%receta["nombre"])
+		print("        > Imagen: %s"%receta["imagen"])
+		print("        > Url: %s"%receta["url"])
+		print("        > Calorias: %f kcal"%receta["calorias"])
+		print("        > Vegano:",receta["vegan"])
+		print("        > Coincidencias: %i"%receta["coin"])
+		print("        > ",receta["listcoin"])
+		print("        > Ingredientes:")
+		for ing in receta["ingredientes"]:
+			print("            * %s"%ing)
 
 ###########################################
 #                 MAIN                    #
@@ -61,7 +78,12 @@ def Buscar():
 		return render_template("search.html",datos=None)
 	else:
 		params={}
-		params["ingredientes"] = request.form['ingredientes']   
+		params["ingredientes"] = request.form['ingredientes'] 
+		if request.form["menos"] == "True" and request.form["calorias"] != None:
+			params["calorias"]= "lte %s"%request.form["calorias"]
+		elif request.form["menos"] == "False" and request.form["calorias"] != None:  
+			params["calorias"]= "gte %s"%request.form["calorias"]
+
 		print(params["ingredientes"])
 		
 		for ing in params["ingredientes"].strip().split(","):
@@ -72,15 +94,16 @@ def Buscar():
 			'to' : NUM
 			}
 			SolicitarRecetas(ing,HEAD)
-			Coincidencias(params["ingredientes"])
 		
-		RECETAS.sort(key=lambda x: x["coin"])
+		Coincidencias(params["ingredientes"])
+		RECETAS.sort(key=lambda x: x["coin"], reverse=True)
 
 		return redirect("/resultados/0")
 
 @app.route('/resultados/<ini>')
 def Resultados(ini):
 	datos=[]
+	ImprimirConsola()
 	for x in range(0,9):
 
 		datos.append(RECETAS[x])

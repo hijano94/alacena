@@ -2154,7 +2154,14 @@
 	.box {
 		border: solid 1px #dbdbdb;
 		margin-bottom: 2em;
-		padding: 1.5em;
+		margin-right: 4em;
+		margin-left: 4em;
+		margin-top: 2em
+		padding-top: 2em;
+		padding-bottom: 2em;
+		padding-right: 2em;
+		padding-left: 2em;
+
 	}
 
 		.box > :last-child,
@@ -2237,6 +2244,8 @@
 			float: left;
 			padding: 0 1.5em 1em 0;
 			top: 0.25em;
+			width: 400px;
+			height: 400px;
 		}
 
 		.image.right {
@@ -2247,12 +2256,13 @@
 
 		.image.fit {
 			display: block;
-			margin: 0 0 2em 0;
+			padding: 1em 1em 1em 1em;
 			width: 100%;
 		}
 
 			.image.fit img {
-				width: 100%;
+				width: 20em;
+				height: 20em;
 			}
 
 		.image.main {
@@ -2608,6 +2618,7 @@
 		button.alt,
 		.button.alt {
 			background-color: transparent;
+			float:right;
 			box-shadow: inset 0 0 0 3px #FFF;
 			color: #fff !important;
 		}
