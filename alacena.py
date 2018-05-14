@@ -41,6 +41,7 @@ def SolicitarRecetas (ingrediente,HEAD):
 			RECETAS.append(dic)
 	else:
 		print("API no disponible...")
+		print(c.text)
 
 def	Coincidencias (ingre):
 	for receta in RECETAS:
@@ -105,7 +106,6 @@ def Buscar():
 def Resultados(ini):
 	datos=[]
 	for x in range(0,9):
-
 		datos.append(RECETAS[x])
 
 	ImprimirConsola(datos)
