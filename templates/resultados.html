@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>ALaCena - Resultados</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/css/main.css" />
+		<link rel="icon" type="image/x-icon" href="/static/img/logo-alc.png" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="index.html" class="logo"><strong>ALaCena</strong> by Carlos Hijano</a>
+					<nav id="nav">
+						<a href="/">Inicio</a>
+						<a href="/buscar">Buscador</a>
+						<a href="/despensa">Despensa</a>
+						<a href="/acercade">Acerca de</a>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Three -->
+				{% for receta in datos %}
+				<div class="box">
+
+					<center><h3>{{receta["nombre"]}}</h3></center>
+					<span class="image left"><img src= "{{ receta['imagen'] }}" alt="" /></span>
+
+				
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+									<td><h4>Ingredientes:</h4></td>
+								</tr>
+							</thead>	
+							<tbody>
+								{% for ing in receta['ingredientes']%}
+								<tr>
+									<td>{{ing}}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					<ul class="actions fit">
+						<li><p>{{receta['calorias']}} Kcal</p></li>
+						<li><a href="{{ receta['url']}}" class="button alt icon fa-search">Ver receta completa</a></li>
+					</ul>
+
+				</div>
+				{% endfor %}
+
+				<!--
+				<ul class="actions">
+					<li><a href="/resultados" class="button special">Anterior</a></li>
+					<li><a href="/resultados" class="button">Siguiente</a></li>
+				</ul>
+				-->
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+
+					<div class="copyright">
+						&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
+					</div>
+
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/skel.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<script src="/static/js/main.js"></script>
+
+	</body>
+</html>

@@ -111,9 +111,14 @@ def Resultados(ini):
 	ImprimirConsola(datos)
 	return render_template("resultados.html", datos = datos)
 
-#@app.route('/despensa')
-#def Despensa():
-	
+@app.route('/despensa')
+def Despensa():
+	if request.method=="GET":
+		return render_template("search.html",datos=None)
+	#else:	
+
+
+
 
 if __name__ == '__main__':
 	port=os.environ["PORT"]
