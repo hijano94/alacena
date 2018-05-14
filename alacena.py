@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 URL="https://test-es.edamam.com/search"
 RECETAS=[]
-NUM=20 		# Número de recetas solicitadas a la API
+NUM=5 		# Número de recetas solicitadas a la API
 PAG=10		# Número de recetas por página
 
 ##########################################
@@ -23,7 +23,6 @@ def SolicitarRecetas (ingrediente,HEAD):
 	c=requests.get(URL ,params=HEAD)
 	
 	if c.status_code == 200:
-		RECETAS.clear()
 		todo=c.json()
 		for re in todo["hits"]:
 			dic={}
@@ -40,8 +39,7 @@ def SolicitarRecetas (ingrediente,HEAD):
 				dic["vegan"]=False	
 			RECETAS.append(dic)
 	else:
-		print("API no disponible...")
-		print(c.text)
+		print("\n####################### API no disponible... ################################\n")
 
 def	Coincidencias (ingre):
 	for receta in RECETAS:
@@ -79,6 +77,7 @@ def Buscar():
 	if request.method=="GET":
 		return render_template("search.html",datos=None)
 	else:
+		RECETAS.clear()
 		params={}
 		params["ingredientes"] = request.form['ingredientes'] 
 		if request.form["menos"] == "True" and request.form["calorias"] != '' :
@@ -87,11 +86,15 @@ def Buscar():
 			params["calorias"]= "gte %s"%request.form["calorias"]
 		else:
 			params["calorias"]= None
-				
-		print(request.form)
-		params["salud"]= request.form.getlist('salud')
-		params["dieta"]= request.form.getlist('dieta')
-
+		if request.form['salud'] == "on":
+			params["salud"]=None
+		else:	
+			params["salud"]= request.form['salud']
+		print(request.form['dieta'])	
+		if request.form['dieta'] == "on":
+			params["dieta"]=None
+		else:	
+			params["dieta"]= request.form['dieta']
 
 		for ing in params["ingredientes"].strip().split(","):
 			HEAD = {
@@ -114,8 +117,11 @@ def Buscar():
 @app.route('/resultados/<ini>')
 def Resultados(ini):
 	datos=[]
-	for x in range(0,9):
-		datos.append(RECETAS[x])
+	for idx,x in enumerate(RECETAS):
+		if idx < PAG:
+			datos.append(x)
+		else:
+			break	
 
 	ImprimirConsola(datos)
 	return render_template("resultados.html", datos = datos)
