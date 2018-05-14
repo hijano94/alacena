@@ -86,12 +86,12 @@ def Buscar():
 			params["calorias"]= "gte %s"%request.form["calorias"]
 		else:
 			params["calorias"]= None
-		if request.form['salud'] == "on":
+		if request.form['salud'] == "None" or request.form['salud'] == "on":
 			params["salud"]=None
 		else:	
 			params["salud"]= request.form['salud']
 		print(request.form['dieta'])	
-		if request.form['dieta'] == "on":
+		if request.form['dieta'] == "None" or request.form['dieta'] == "on":
 			params["dieta"]=None
 		else:	
 			params["dieta"]= request.form['dieta']
