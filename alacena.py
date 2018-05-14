@@ -81,18 +81,27 @@ def Buscar():
 	else:
 		params={}
 		params["ingredientes"] = request.form['ingredientes'] 
-		if request.form["menos"] == "True" and request.form["calorias"] != None:
+		if request.form["menos"] == "True" and request.form["calorias"] != '' :
 			params["calorias"]= "lte %s"%request.form["calorias"]
-		elif request.form["menos"] == "False" and request.form["calorias"] != None:  
+		elif request.form["menos"] == "False" and request.form["calorias"] != '':  
 			params["calorias"]= "gte %s"%request.form["calorias"]
-		
+		else:
+			params["calorias"]= None
+				
+		print(request.form)
+		params["salud"]= request.form.getlist('salud')
+		params["dieta"]= request.form.getlist('dieta')
+
+
 		for ing in params["ingredientes"].strip().split(","):
 			HEAD = {
 			'app_id':os.environ["recipe_id"],
 			'app_key': os.environ["recipe_key"], 
 			'q' : ing,
 			'calories' : params["calorias"],
-			'to' : NUM
+			'to' : NUM,
+			'diet': params["dieta"],
+			'health': params["salud"]
 			}
 			print(HEAD)
 			SolicitarRecetas(ing,HEAD)
