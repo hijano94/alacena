@@ -24,7 +24,7 @@
 						<a href="/buscar">Buscador</a>
 						<a href="/despensa">Despensa</a>
 						<a href="/acercade">Acerca de...</a>
-						<a href="#popup">Entrar / Registrarse</a>
+						<a href="/#popup">Entrar / Registrarse</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
@@ -74,13 +74,11 @@
 		<!-- Three -->
 			<section id="three" class="wrapper align-center">
 				<div class="inner">
-					<div class="modal-wrapper" id="popup">
-   						<div class="popup-contenedor">
-      						<h2>Titulo de la Modal</h2>
-      						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor deleniti...</p>
-      						<a class="popup-cerrar" href="#">X</a>
-   						</div>
-					</div>
+
+
+					
+
+
 					<div class="flex flex-2">
 						<article>
 							<div class="image round">
@@ -128,4 +126,23 @@
 			<script src="/static/js/main.js"></script>
 
 	</body>
+
+		<div class="modal-wrapper" id="popup">
+   			<div class="popup-contenedor">
+   				<form method="post" action="/buscar">
+	      			<ul class="alt">
+	      				<li><h4>Usuario</h4></li>
+	      				<li><input name="name" type="text" id="demo-message" placeholder="Introduce usuario" rows="1" value= "{{ datos['name'] }}" ></input></li>
+	      				<li><h4>Contraseña</h4></li>
+	      				<li><input name="pswd" type="text" id="demo-message" placeholder="Introduce contraseña" rows="1" value= "{{ datos['pswd'] }}" ></input></li>
+	      			</ul>
+	      			<ul class="actions">
+	      				<li><a href="/ini"><input type="submit" name="submit" value="registrar" /></a></li>
+						<li><a href="/ini"><input type="submit" name="submit" value="iniciar" /></a></li>	
+					</ul>
+				</form>
+      			<a class="popup-cerrar" href="#">X</a>
+   			</div>
+		</div>
+
 </html>

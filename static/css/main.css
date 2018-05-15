@@ -2303,8 +2303,7 @@
 		}
 
 			ul.alt li {
-				border-top: solid 1px #dbdbdb;
-				padding: 0.5em 0;
+				border-top: transparent;				
 			}
 
 				ul.alt li:first-child {
@@ -3183,7 +3182,7 @@
   	right:0;
   	bottom:0;
 	margin:0;
-	z-index: 999;
+	z-index: 10100;
 	transition:all 1s;
 }
 .popup-contenedor {

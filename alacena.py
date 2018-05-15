@@ -70,7 +70,13 @@ def ImprimirConsola (datos):
 
 @app.route('/')
 def Inicio():
-	return render_template("index.html")
+	return render_template("index.html", datos=None)
+			
+@app.route('/ini', methods=['POST'])
+def Ingresar():
+	if request.form["submit"]=="iniciar":
+		print("\n########### INICIO #########\n")
+
 
 @app.route('/buscar', methods=['GET', 'POST'])
 def Buscar():
@@ -89,8 +95,7 @@ def Buscar():
 		if request.form['salud'] == "None" or request.form['salud'] == "on":
 			params["salud"]=None
 		else:	
-			params["salud"]= request.form['salud']
-		print(request.form['dieta'])	
+			params["salud"]= request.form['salud']	
 		if request.form['dieta'] == "None" or request.form['dieta'] == "on":
 			params["dieta"]=None
 		else:	
