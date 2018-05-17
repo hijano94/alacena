@@ -65,6 +65,24 @@ def ImprimirConsola (datos):
 		for ing in receta["ingredientes"]:
 			print("            * %s"%ing)
 
+def DarIngredientes():
+	with open ("datos.json", "r+") as datos:
+		for dat in datos.readlines():
+			usuario=json.loads(dat)
+			if usuario["nombre"]==session["usuario"]:
+				return usuario["ingredientes"]
+
+def AnadirIng(ingrediente):
+	with open ("datos.json", "r+") as datos:
+		for dat in datos.readlines():
+			usuario=json.loads(dat)
+			if usuario["nombre"]==session["usuario"]:
+				usuario["ingredientes"].append(ingrediente)
+				dat.write(usuario)
+				print(usuario)
+				break
+
+
 ###########################################
 #                 MAIN                    #
 ###########################################
@@ -72,21 +90,24 @@ def ImprimirConsola (datos):
 @app.route('/', methods=['GET', 'POST'])
 def Inicio():
 	if request.method=="GET":
-		return render_template("index.html", datos=None)
+		return render_template("index.html", error=None)
 	else:
 		if request.form["submit"]=="iniciar":
-			print("\n########### INICIO #########\n")
-			with open ("datos.json") as despensa:
-				for usuario in despensa["usuarios"]:
+			with open ("datos.json") as datos:
+				for idx,usuario in enumerate(datos):
 					if request.form["name"] == usuario["nombre"] and request.form["pswd"] == usuario["pswd"]:
-						print("iniciado")
 						session["usuario"]=usuario["nombre"]
-						break
+						return redirect("/")
+				render_template("index.html",datos=None, error="El usuario no existe")		
 
 		elif request.form["submit"]=="registrar":
-			with open ("datos.json", "w") as despensa:
-				usuario={"nombre": request.form["name"], "pswd": request.form["pswd"], "ingredientes": []}
-				json.dump(usuario,despensa)
+			with open ("datos.json", "r+") as datos:
+				for dat in datos.readlines():
+					usuario=json.loads(dat)
+					if usuario["nombre"]==request.form["name"]:
+						return render_template("index.html",datos=None, error="Usuario ya registrado")
+				usuario=json.dumps({"nombre": request.form["name"], "pswd": request.form["pswd"], "ingredientes": []})
+				datos.write(usuario + '\n')	
 				session["usuario"]=request.form["name"]
 				return render_template("index.html", datos=session)
 
@@ -144,14 +165,26 @@ def Resultados(ini):
 	ImprimirConsola(datos)
 	return render_template("resultados.html", datos = datos)
 
-@app.route('/despensa')
+@app.route('/despensa',methods=['GET', 'POST'])
 def Despensa():
 	if request.method=="GET":
-		return render_template("search.html",datos=None)
-	#else:	
+		print(session)
+		if not "usuario" in session:
+			return redirect("/#popup")
+		else:
+			ingredientes=DarIngredientes()
+			return render_template("despensa.html",datos=ingredientes)
+	else:	
+		AnadirIng(request.form["ingrediente"])
+		return redirect("/despensa")
 
-
-
+@app.route('/eliminar/<cod>')
+def Eliminar(cod):
+	with open ("datos.json", "r+") as datos:
+		for dat in datos.readlines():
+			usuario=json.loads(dat)
+			if usuario["nombre"]==session["usuario"]:
+				usuario["ingredientes"].pop(cod)
 
 if __name__ == '__main__':
 	port=os.environ["PORT"]

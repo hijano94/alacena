@@ -2303,7 +2303,8 @@
 		}
 
 			ul.alt li {
-				border-top: transparent;				
+				border-top: transparent;	
+				margin-top: 15px;				
 			}
 
 				ul.alt li:first-child {
