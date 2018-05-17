@@ -4,6 +4,7 @@ import requests
 import json
 import os
 app = Flask(__name__)
+app.secret_key = "aGiieedSLenAGdonsyyTSRD238nEA"
 
 ##########################################
 #         VARIABLES GLOBALES             #
@@ -68,14 +69,26 @@ def ImprimirConsola (datos):
 #                 MAIN                    #
 ###########################################
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def Inicio():
-	return render_template("index.html", datos=None)
-			
-@app.route('/ini', methods=['POST'])
-def Ingresar():
-	if request.form["submit"]=="iniciar":
-		print("\n########### INICIO #########\n")
+	if request.method=="GET":
+		return render_template("index.html", datos=None)
+	else:
+		if request.form["submit"]=="iniciar":
+			print("\n########### INICIO #########\n")
+			with open ("datos.json") as despensa:
+				for usuario in despensa["usuarios"]:
+					if request.form["name"] == usuario["nombre"] and request.form["pswd"] == usuario["pswd"]:
+						print("iniciado")
+						session["usuario"]=usuario["nombre"]
+						break
+
+		elif request.form["submit"]=="registrar":
+			with open ("datos.json", "w") as despensa:
+				usuario={"nombre": request.form["name"], "pswd": request.form["pswd"], "ingredientes": []}
+				json.dump(usuario,despensa)
+				session["usuario"]=request.form["name"]
+				return render_template("index.html", datos=session)
 
 
 @app.route('/buscar', methods=['GET', 'POST'])

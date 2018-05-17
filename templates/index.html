@@ -129,16 +129,16 @@
 
 		<div class="modal-wrapper" id="popup">
    			<div class="popup-contenedor">
-   				<form method="post" action="/buscar">
+   				<form method="post" action="/">
 	      			<ul class="alt">
 	      				<li><h4>Usuario</h4></li>
 	      				<li><input name="name" type="text" id="demo-message" placeholder="Introduce usuario" rows="1" value= "{{ datos['name'] }}" ></input></li>
 	      				<li><h4>Contraseña</h4></li>
-	      				<li><input name="pswd" type="text" id="demo-message" placeholder="Introduce contraseña" rows="1" value= "{{ datos['pswd'] }}" ></input></li>
+	      				<li><input name="pswd" type="password" id="demo-message" placeholder="Introduce contraseña" rows="1" value= "{{ datos['pswd'] }}" ></input></li>
 	      			</ul>
 	      			<ul class="actions">
-	      				<li><a href="/ini"><input type="submit" name="submit" value="registrar" /></a></li>
-						<li><a href="/ini"><input type="submit" name="submit" value="iniciar" /></a></li>	
+	      				<li><input type="submit" name="submit" value="registrar" /></li>
+						<li><input type="submit" name="submit" value="iniciar" /></li>	
 					</ul>
 				</form>
       			<a class="popup-cerrar" href="#">X</a>
