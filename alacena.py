@@ -100,17 +100,17 @@ def Inicio():
 				return render_template("index.html",datos=None, error="El usuario no existe")		
 
 		elif request.form["submit"]=="registrar":
-			with open ("usuarios/%s.json"%request.form["name"], "w+") as datos:
 				try:
-					usuario=json.load(datos)
-					if usuario["nombre"]==request.form["name"]:
-						return render_template("index.html",datos=None, error="Usuario ya registrado")
-
-				except:		
-					usuario={"nombre": request.form["name"], "pswd": request.form["pswd"], "ingredientes": []}	
-					json.dump(usuario,datos)
-					session["usuario"]=request.form["name"]
-					return render_template("index.html", datos=session)
+					with open ("usuarios/%s.json"%request.form["name"], "r+") as datos:
+						usuario=json.load(datos)
+						if usuario["nombre"]==request.form["name"]:
+							return render_template("index.html",datos=None, error="Usuario ya registrado")
+				except:	
+					with open ("usuarios/%s.json"%request.form["name"], "w+") as datos:	
+						usuario={"nombre": request.form["name"], "pswd": request.form["pswd"], "ingredientes": []}	
+						json.dump(usuario,datos)
+						session["usuario"]=request.form["name"]
+						return render_template("index.html", datos=session)
 @app.route('/salir')
 def Salir():
 	session.clear()

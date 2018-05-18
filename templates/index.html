@@ -17,7 +17,7 @@
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="index.html" class="logo"><strong>ALaCena</strong> by Carlos Hijano</a>
+					<a href="index.html" class="logo">{{% if session["usuario"] %}} {{session["usuario"]}}@ {%endif%}<strong>ALaCena</strong></a>
 					<nav id="nav">
 						<a href="/">Inicio</a>
 						<a href="/buscar">Buscador</a>
@@ -144,8 +144,8 @@
 	      				<li><input name="pswd" type="password" id="demo-message" placeholder="Contraseña" rows="1" ></input></li>
 	      			</ul>
 	      			<ul class="actions">
-	      				<li><input type="submit" name="submit" value="registrar" /></li>
-						<li><input type="submit" name="submit" value="iniciar" /></li>	
+	      				<li><input type="submit" name="submit" value="iniciar" /></li>
+	      				<li><input type="submit" name="submit" value="registrar" /></li>	
 					</ul>
 				</form>
       			<a class="popup-cerrar" href="#">X</a>
