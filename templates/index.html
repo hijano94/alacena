@@ -11,7 +11,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="/static/css/main.css" />
 		<link rel="icon" type="image/x-icon" href="/static/img/logo-alc.png" />
-		{%block ccs_login%}{%endblock%}
 	</head>
 	<body>
 
@@ -24,7 +23,11 @@
 						<a href="/buscar">Buscador</a>
 						<a href="/despensa">Despensa</a>
 						<a href="/acercade">Acerca de...</a>
+						{% if session["usuario"] %}
+						<a href="/salir">Salir</a>
+						{%else%}
 						<a href="/#popup">Entrar / Registrarse</a>
+						{%endif%}
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
