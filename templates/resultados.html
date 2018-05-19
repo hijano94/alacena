@@ -17,7 +17,7 @@
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="index.html" class="logo"><strong>ALaCena</strong> by Carlos Hijano</a>
+					<a href="index.html" class="logo">{%if session["usuario"]%} <strong>{{ session["usuario"] }}</strong> @ {%endif%}<strong>ALaCena</strong></a>
 					<nav id="nav">
 						<a href="/">Inicio</a>
 						<a href="/buscar">Buscador</a>
