@@ -13,14 +13,14 @@ app.secret_key = "aGiieedSLenAGdonsyyTSRD238nEA"
 URL="https://test-es.edamam.com/search"
 URLY="https://www.googleapis.com/youtube/v3/search"
 RECETAS=[]
-NUM=5 		# Número de recetas solicitadas a la API
+NUM=10 		# Número de recetas solicitadas a la API
 PAG=10		# Número de recetas por página
 
 ##########################################
 #              FUNCIONES                 #
 ##########################################
 
-def SolicitarRecetas (ingrediente,HEAD):
+def SolicitarRecetas (HEAD):
 	
 	c=requests.get(URL ,params=HEAD)
 	
@@ -38,7 +38,7 @@ def SolicitarRecetas (ingrediente,HEAD):
 			if 'Vegan' in re["recipe"]["healthLabels"]:	
 				dic["vegan"]=True
 			else:
-				dic["vegan"]=False	
+				dic["vegan"]=False		
 			RECETAS.append(dic)
 	else:
 		print("\n####################### API no disponible... ################################\n")
@@ -62,6 +62,7 @@ def ImprimirConsola (datos):
 		print("        > Vegano:",receta["vegan"])
 		print("        > Coincidencias: %i"%receta["coin"])
 		print("        > ",receta["listcoin"])
+		print("        > Video:",receta["video"])
 		print("        > Ingredientes:")
 		for ing in receta["ingredientes"]:
 			print("            * %s"%ing)
@@ -82,26 +83,26 @@ def AnadirIng(ingrediente):
 def PedirVideo(q):
 
 	par={
-	"key": os.environ["youtube_key"],
-	"part": "id",
-	"q": q,
-	"regionCode": "es",
-	"type": "video"
+	'key': os.environ["youtube_key"],
+	'part': "id",
+	'q': q,
+	'regionCode': "es",
+	'type': "video"
 	}
+	print(par)
 	c=requests.get(URLY ,params=par)
 	
 	if c.status_code == 200:
 		video=c.json()
-		return "https://www.youtube.com/watch?v="+video["id"]["videoId"]
-			
+		return "https://www.youtube.com/watch?v="+video["id"]["videoId"]		
 	else:
 		print("\n####################### youtube no esta") 
 
 # "kind": "youtube#searchResult",
 # "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/Xjt9hFU0xOWwJfQr4YwlgDKNNFw\""
 # https://www.youtube.com/watch?v=qmItGJRS4Uw
-    "kind": "youtube#video",
-    "videoId": "UWD8ZJvT2gY"
+#    "kind": "youtube#video",
+#    "videoId": "UWD8ZJvT2gY"
 ###########################################
 #                 MAIN                    #
 ###########################################
@@ -172,25 +173,33 @@ def Buscar():
 			'diet': params["dieta"],
 			'health': params["salud"]
 			}
-			print(HEAD)
-			SolicitarRecetas(ing,HEAD)
+			SolicitarRecetas(HEAD)
 		
 		Coincidencias(params["ingredientes"])
 		RECETAS.sort(key=lambda x: x["coin"], reverse=True)
+		
+		return redirect("/resultados/1")
 
-		return redirect("/resultados/0")
-
-@app.route('/resultados/<ini>')
+@app.route('/resultados/<int:ini>')
 def Resultados(ini):
 	datos=[]
+	inicio=(PAG * ini)-PAG
+	fin=PAG * ini
 	for idx,x in enumerate(RECETAS):
-		if idx < PAG:
+		if idx >= inicio and idx < fin:
+			print(idx,inicio,fin)
+			x["video"]=PedirVideo(x["nombre"])
 			datos.append(x)
-		else:
-			break	
+		
+	if ini >1:
+		ant=ini-1
+	else:
+		ant=1
+	sig=ini+1				
 
+	Datos=[datos,ant,sig]		
 	ImprimirConsola(datos)
-	return render_template("resultados.html", datos = datos)
+	return render_template("resultados.html", datos = Datos)
 
 @app.route('/despensa',methods=['GET', 'POST'])
 def Despensa():

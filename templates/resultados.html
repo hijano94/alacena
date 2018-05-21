@@ -29,7 +29,8 @@
 			</header>
 
 		<!-- Three -->
-				{% for receta in datos %}
+			{% if datos[0] %}
+				{% for receta in datos[0] %}
 				<div class="box">
 
 					<center><h3>{{receta["nombre"]}}</h3></center>
@@ -55,19 +56,24 @@
 
 					<ul class="actions fit">
 						<li><p>{{receta['calorias']}} Kcal</p></li>
-						<li><a href="{{ receta['url']}}" class="button alt icon fa-search">Ver receta completa</a></li>
-						<li><a href="{{ receta['you'] }}" class="button alt icon fa-search">Ver Video</a></li>
+						<li><a href="{{ receta['url']}}" class="button icon fa-search">Ver receta completa</a></li>
+						<li><a href="{{ receta['video'] }}" class="button alt icon fa-video-camera">Ver Video</a></li>
 					</ul>
 
 				</div>
 				{% endfor %}
-
-				<!--
+			{% else %}
+				<div class="box">
+					<h4>No hay recetas...</h4>
+				</div>	
+				
+			{%endif%}	
 				<ul class="actions">
-					<li><a href="/resultados" class="button special">Anterior</a></li>
-					<li><a href="/resultados" class="button">Siguiente</a></li>
+
+					<li><a href="/resultados/{{datos[1]}}" class="button special">Anterior</a></li>
+					<li><a href="/resultados/{{datos[2]}}" class="button">Siguiente</a></li>
 				</ul>
-				-->
+				
 		<!-- Footer -->
 			<footer id="footer">
 				<div class="inner">
