@@ -11,6 +11,7 @@ app.secret_key = "aGiieedSLenAGdonsyyTSRD238nEA"
 ##########################################
 
 URL="https://test-es.edamam.com/search"
+URLY="https://www.googleapis.com/youtube/v3/search"
 RECETAS=[]
 NUM=5 		# Número de recetas solicitadas a la API
 PAG=10		# Número de recetas por página
@@ -77,8 +78,30 @@ def AnadirIng(ingrediente):
 
 	with open ("usuarios/%s.json"%session["usuario"], "w") as datos:
 		json.dump(usuario,datos)
-		
+	
+def PedirVideo(q):
 
+	par={
+	"key": os.environ["youtube_key"],
+	"part": "id",
+	"q": q,
+	"regionCode": "es",
+	"type": "video"
+	}
+	c=requests.get(URLY ,params=par)
+	
+	if c.status_code == 200:
+		video=c.json()
+		return "https://www.youtube.com/watch?v="+video["id"]["videoId"]
+			
+	else:
+		print("\n####################### youtube no esta") 
+
+# "kind": "youtube#searchResult",
+# "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/Xjt9hFU0xOWwJfQr4YwlgDKNNFw\""
+# https://www.youtube.com/watch?v=qmItGJRS4Uw
+    "kind": "youtube#video",
+    "videoId": "UWD8ZJvT2gY"
 ###########################################
 #                 MAIN                    #
 ###########################################
