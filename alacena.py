@@ -101,11 +101,6 @@ def PedirVideo(q):
 	else:
 		print("\n####################### youtube no esta") 
 
-# "kind": "youtube#searchResult",
-# "etag": "\"DuHzAJ-eQIiCIp7p4ldoVcVAOeY/Xjt9hFU0xOWwJfQr4YwlgDKNNFw\""
-# https://www.youtube.com/watch?v=qmItGJRS4Uw
-#    "kind": "youtube#video",
-#    "videoId": "UWD8ZJvT2gY"
 ###########################################
 #                 MAIN                    #
 ###########################################
