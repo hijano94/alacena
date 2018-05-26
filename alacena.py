@@ -13,7 +13,7 @@ app.secret_key = "aGiieedSLenAGdonsyyTSRD238nEA"
 URL="https://test-es.edamam.com/search"
 URLY="https://www.googleapis.com/youtube/v3/search"
 RECETAS=[]
-NUM=10 		# Número de recetas solicitadas a la API
+NUM=20 		# Número de recetas solicitadas a la API
 PAG=10		# Número de recetas por página
 
 ##########################################
@@ -45,7 +45,7 @@ def SolicitarRecetas (HEAD):
 
 def	Coincidencias (ingre):
 	for receta in RECETAS:
-		for ing in ingre.strip().split(","):
+		for ing in ingre:
 			for x in receta["ingredientes"]:
 				if ing.upper() in x.upper():
 					receta["coin"]+=1
@@ -87,14 +87,17 @@ def PedirVideo(q):
 	'part': "id",
 	'q': q,
 	'regionCode': "es",
-	'type': "video"
+	'type': "video",
+	'maxResult': 1
 	}
-	print(par)
+
 	c=requests.get(URLY ,params=par)
-	
+	print(c.status_code)
 	if c.status_code == 200:
 		video=c.json()
-		return "https://www.youtube.com/watch?v="+video["id"]["videoId"]		
+		print(video)
+
+		return "https://www.youtube.com/watch?v="+video["items"][0]["id"]["videoId"]		
 	else:
 		print("\n####################### youtube no esta") 
 
@@ -116,7 +119,6 @@ def Inicio():
 			try:
 				with open ("usuarios/%s.json"%request.form["name"], "r+") as datos:
 					usuario=json.load(datos)
-					print(usuario)
 					if request.form["pswd"] == usuario["pswd"]:
 						session["usuario"]=usuario["nombre"]
 						return redirect("/")
@@ -147,7 +149,8 @@ def Buscar():
 	else:
 		RECETAS.clear()
 		params={}
-		params["ingredientes"] = request.form['ingredientes'] 
+		Ingredientes=[]
+		params["ingredientes"] = request.form['ingredientes']
 		if request.form["menos"] == "True" and request.form["calorias"] != '' :
 			params["calorias"]= "lte %s"%request.form["calorias"]
 		elif request.form["menos"] == "False" and request.form["calorias"] != '':  
@@ -173,9 +176,13 @@ def Buscar():
 			'diet': params["dieta"],
 			'health': params["salud"]
 			}
+			Ingredientes.append(ing)
 			SolicitarRecetas(HEAD)
 		
-		Coincidencias(params["ingredientes"])
+		if "usuario" in session:
+			for i in DarIngredientes():
+				Ingredientes.append(i)
+		Coincidencias(Ingredientes)
 		RECETAS.sort(key=lambda x: x["coin"], reverse=True)
 		
 		return redirect("/resultados/1")
@@ -187,7 +194,6 @@ def Resultados(ini):
 	fin=PAG * ini
 	for idx,x in enumerate(RECETAS):
 		if idx >= inicio and idx < fin:
-			print(idx,inicio,fin)
 			x["video"]=PedirVideo(x["nombre"])
 			datos.append(x)
 		
@@ -221,7 +227,11 @@ def Eliminar(cod):
 	with open ("usuarios/%s.json"%session["usuario"], "w") as datos:
 		json.dump(usuario,datos)
 	return redirect("/despensa")	
-		
+
+@app.route('/acercade')
+def Acerca():
+	return render_template("info.html")
+
 if __name__ == '__main__':
 	port=os.environ["PORT"]
 	app.run('0.0.0.0',int(port), debug=True)
