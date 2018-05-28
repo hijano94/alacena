@@ -24,6 +24,11 @@
 						<a href="/buscar">Buscador</a>
 						<a href="/despensa">Despensa</a>
 						<a href="/acercade">Acerca de</a>
+						{% if session["usuario"] %}
+						<a href="/salir">Salir</a>
+						{%else%}
+						<a href="/#popup">Entrar / Registrarse</a>
+						{%endif%
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
@@ -145,4 +150,25 @@
 			<script src="/static/js/main.js"></script>
 
 	</body>
+	<div class="modal-wrapper" id="popup">
+   			<div class="popup-contenedor">
+   				<form method="post" action="/">
+	      			<ul class="alt">
+	      				{%if error%}
+	      					<div>
+								<span class="icon fa-exclamation-circle"></span>
+								<p>{{error}}</p>
+							</div>
+	      				{%endif%}
+	      				<li><input name="name" type="text" id="demo-message" placeholder="Usuario" rows="1" ></input></li>
+	      				<li><input name="pswd" type="password" id="demo-message" placeholder="Contraseña" rows="1" ></input></li>
+	      			</ul>
+	      			<ul class="actions">
+	      				<li><input type="submit" name="submit" value="iniciar" /></li>
+	      				<li><input type="submit" name="submit" value="registrar" /></li>	
+					</ul>
+				</form>
+      			<a class="popup-cerrar" href="#">X</a>
+   			</div>
+		</div>
 </html>
