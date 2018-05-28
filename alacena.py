@@ -13,7 +13,7 @@ app.secret_key = "aGiieedSLenAGdonsyyTSRD238nEA"
 URL="https://test-es.edamam.com/search"
 URLY="https://www.googleapis.com/youtube/v3/search"
 RECETAS=[]
-NUM=20 		# Número de recetas solicitadas a la API
+NUM= os.environ["NUM"]		# Número de recetas solicitadas a la API
 PAG=10		# Número de recetas por página
 
 ##########################################
