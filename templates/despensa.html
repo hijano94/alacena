@@ -24,6 +24,9 @@
 						<a href="/buscar">Buscador</a>
 						<a href="/despensa">Despensa</a>
 						<a href="/acercade">Acerca de</a>
+						{% if session["usuario"] %}
+						<a href="/salir">Salir</a>
+						{%endif%}
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
