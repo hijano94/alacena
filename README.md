@@ -13,7 +13,7 @@ El usuario introducirá los filtros y los ingredientes que serán enviados a la 
 * [Edamam API](https://developer.edamam.com/es/api-recetas-edamam-documentacion) Devuelve un listado de recetas en función de un ingrediente y varios filtros como: Calorias, etiqueta de salud, dieta... Los datos vienen en formato *JSON* y tiene una autentificación de usuario y contraseñá en los parametros.
 * [Youtube API](https://developers.google.com/youtube/v3/docs/search/list) Busca un video de cada receta.
 
-## Funciones:
+## Funciones
 * **SolicitarRecetas**: Hace una petición request a la API de *Edamam* y guarda la respuesta en una lista de diccionarios.
 * **Coincidencias**: Añade una variable con el numero de coincidencias de ingredientes de la receta con los del usuario.
 * **ImprimirConsola**: Muestra las recetas que ha respondido la API de forma clara por consola.

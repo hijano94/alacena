@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<!--
+	Projection by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>ALaCena - A cerca de</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/css/main.css" />
+		<link rel="icon" type="image/x-icon" href="/static/img/logo-alc.png" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="/" class="logo">{%if session["usuario"]%} <strong>{{ session["usuario"] }}</strong> @ {%endif%}<strong>ALaCena</strong></a>
+					<nav id="nav">
+						<a href="/">Inicio</a>
+						<a href="/buscar">Buscador</a>
+						<a href="/despensa">Despensa</a>
+						<a href="/acercade">Acerca de</a>
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+			<!-- Three -->
+			<section id="three" class="wrapper">
+				<div class="inner">
+					<header class="align-center">
+						<h2>ALaCena</h2>
+						<p>¿Cómo funciona la aplicación? </p>
+					</header>
+					<div class="image round left">
+						<img src="/static/img/logo-alc.png" alt="Pic 01" />
+					</div>
+					<p><strong>Alacena</strong> pretende solventar esa gran duda que envuelve a todos los hogares. <strong>¿Que preparamos para comer?</strong> Alacena es una aplicación web que ofrece múltiples recetas en función de los ingredientes que tengas en casa. Solo tienes que acceder al <strong>Buscador</strong> , introducir los ingredientes que tienes en casa y le aparecerán una variedad de recetas que podras preparar. Tambien puedes registrarte en el sitio web y tener un registro de todos los ingredientes que tiene en casa, añadiedo o eliminando en la <strong>Despensa</strong>. De esta forma la aplicación podra hacer una busqueda más exaustiva y listar las recetas de la que dispongas todos los ingredientes. La aplicación busca recetas de los ingredientes que apuntas en el buscardor, por lo que lo más coherente es introducir en el buscador los ingredientes que tengas preferencia en gastar, como ingredientes que vayan a caducar pronto.</p>
+
+					<div class="image right">
+						<img src="/static/img/buscador.png" alt="Pic 02" />
+					</div>
+					<p>Aqui, en la página del buscador puedes aplicar diferentes filtros a la búsqueda de recetas como:</p>
+					<p><strong>- Dieta:</strong> Puedes elegir entre una dieta balanceada, una dieta alta en proteinas, una dieta baja en grasas y una dieta baja en carbohidratos. </p>
+					<p><strong>- Salud:</strong> Puedes aplicar uno de los distintos filtros de salud en las recetas como recetas veganas, recetas vegetarianas, recetas sin cacahuetes y recetas sin frutos secos.</p>
+					<p><strong>- Calorias:</strong> Puedes especificar en los criterios de busqueda el rango de calorias deseado en las recetas. </p>
+				</div>
+			</section>
+				
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+
+					<div class="copyright">
+						&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://pixabay.com/es/">Pixabay</a>.
+					</div>
+
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/skel.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<script src="/static/js/main.js"></script>
+
+	</body>
+</html>
